@@ -8,3 +8,4 @@ vimified/tmp/yankring_history_v2.txt
 .zshell/.zcompdump
 .config/fish/generated_completions
 .config/fish/fish_history
+.config/fish/fishd.*

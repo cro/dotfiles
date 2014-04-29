@@ -5,3 +5,5 @@ set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style comman
 # optional plugins
 . ~/src/virtualfish/auto_activation.fish
 . ~/src/virtualfish/global_requirements.fish
+
+set fish_key_bindings fish_vi_key_bindings
