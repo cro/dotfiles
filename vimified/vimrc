@@ -212,7 +212,7 @@ Bundle 'kien/ctrlp.vim'
 " }}}
 "
 " UltiSnips {{{ A snippets tool for Vim
-Bundle 'SirVer/ultisnips'
+" Bundle 'SirVer/ultisnips'
 " }}}
 "
 " mustache.vim {{{ Plugin for working with mustache and handlebars templates
