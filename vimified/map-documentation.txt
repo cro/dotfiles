@@ -1,0 +1,51 @@
+Mappings
+
+,/       Clear highlight after search
+jk       <Esc>
+Y        y$ (Yank to end of line)
+<F2>     Fuzzy Find File
+<F3>     Fuzzy Find Tag
+
+,n       Change line numbers to 0-based from top of file (toggle off) (:set invnumber)
+,i       Change line numbers to 0 at cursor (toggle) (:set invrelativenumber)
+,p       Paste Mode
+;        : (command mode)
+
+,L       Source current line or visual selection
+/        Remapped to /\v so regexps are not case-sensitive
+gq}      Wrap to end of paragraph
+
+Abbreviations
+c@       cro@ncbt.org
+
+Pairwise mappings
+[<space> Add line above cursor
+]<space> Add line below cursor
+[e       Move line at cursor up one (Swap line above cursor with cursor line)
+]e       Move line at cursor down one (Swap line below cursor with cursor line)
+]q       Quickfix :cnext
+[q       Quickfix :cprevious
+]a       :next (file)
+[a       :prev (file
+[x       Encode XML / HTML
+]x       Decode XML / HTML
+[u       Encode URL
+]u       Decode URL
+[f       Next file in directory
+]f       Prev file in directory
+[n       Next SCM conflict marker
+]n       Prev SCM conflict marker
+
+Emacs bindings in commmand mode
+^A       <Home> 
+^E       <End>
+
+Surround
+
+cs[delimeter 1][delimeter 2]  Change surrounding to delimeter 2
+ds[delimeter] remove delimeters
+ys/text object/[delimeter] Surround object with delimiter
+yss[delimiter] wrap line in delimeter
+
+In visual mode: S[delimeter], surrounds text with delimeter
+

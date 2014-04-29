@@ -1,0 +1,9 @@
+.DS_Store
+vimified/tmp/undo/*
+vimified/tmp/backup/*
+vimified/tmp/swap/*
+vimified/bundle/*
+vimified/tmp/yankring_history_v2.txt
+.zshell/history*
+.zshell/.zcompdump
+.config/fish/generated_completions

@@ -1,0 +1,840 @@
+" vimrc
+" Author: Zaiste! <oh@zaiste.net>
+" Source: https://github.com/zaiste/vimified
+"
+" Have fun!
+"
+
+set nocompatible
+filetype off
+
+" Vundle 
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+
+" Bundles and documentation {{{
+"
+" cromail {{{ C. R.'s mail bundle
+Bundle "cro/cromail"
+" }}}
+"
+" vim-virtualenv {{{ Vimscript commands for activating virtualenvs
+Bundle "jmcantrell/vim-virtualenv"
+" }}}
+" 
+" vim-django-support {{{
+Bundle 'lambdalisue/vim-django-support'
+" http://www.vim.org/scripts/script.php?script_id=3841 Sets
+" DJANGO_SETTINGS_MODULE automatically }}}
+"
+" pythoncomplete {{{ The python omni-completion script that ships with Vim with
+" updates
+Bundle 'meermanr/pythoncomplete'
+" }}} vcs.git {{{ Version Control System interface--doesn't seem to work quite
+" right Bundle 'ervandew/vcs.git' }}}
+"
+" vcscommand.vim {{{ Interface for some VCSes--doesn't really work
+" for Mercurial
+" Bundle 'latestrevision/vcscommand.vim'
+" }}}
+"
+" ack.vim {{{ This plugin is a front for the Perl module App::Ack. Ack can be
+" used as a replacement for 99% of the uses of grep. This plugin will allow you
+" to run ack from vim, and shows the results in a split window.
+Bundle 'mileszs/ack.vim'
+" }}}
+"
+" hammer.vim {{{ Hammer is a Vim plugin written (mostly) in Ruby. 
+" It can be used to transform
+" your markup language of choice to HTML, and open the transformed HTML in
+" whatever your favorite browser is.
+" 
+" It supports a large number of markup languages out of box but it also supports
+" adding custom renderers for markup languages it does not support.
+" 
+" It has support for multiple different layouts (with one styled like the GitHub
+" README layout). You can use your favorite template language to draw up your own
+" layouts (ERB, HAML, …). Layouts are passed the rendered HTML as a partial.
+" 
+" People familiar with Ruby web development should feel right at home with the
+" layout & partial style templates.
+" 
+Bundle 'zaiste/hammer.vim'
+" }}}
+" 
+" tagbar {{{ Tagbar is a vim plugin for browsing the tags of source code files. 
+" It provides
+" a sidebar that displays the ctags-generated tags of the current file, ordered
+" by their scope. This means that for example methods in C++ are displayed under
+" the class they are defined in.
+" http://majutsushi.github.io/tagbar/
+"
+Bundle 'majutsushi/tagbar'
+" }}}
+
+" vim-align {{{ Align and AlignMaps lets you align statements on their equal 
+" signs, make comment boxes, align comments, align declarations, etc. 
+Bundle 'tsaleh/vim-align'
+" }}}
+
+" vim-endwise {{{ This is a simple plugin that helps to end certain structures
+" automatically. In Ruby, this means adding end after if, do, def and several 
+" other keywords. In Vimscript, this amounts to appropriately adding
+" endfunction, endif, etc.  There's also Bourne shell, VB (don't ask), 
+" C/C++ preprocessor, and Lua support.
+"
+" A primary guiding principle in designing this plugin was that an erroneous
+" insertion is never acceptable. The behavior is only triggered once pressing
+" enter on the end of the line. When this happens, endwise searches for
+" a matching end structure and only adds one if none is found.
+"
+" While the goal was to make it customizable, this turned out to be a tall
+" order. Every language has vastly different requirements. Nonetheless, for
+" those bold enough to attempt it, you can follow the model of the autocmds in
+" the plugin to set the three magic variables governing endwise's behavior.
+Bundle 'tpope/vim-endwise'
+" }}}
+"
+" vim-fugitive {{{ " Git wrapper
+Bundle 'tpope/vim-fugitive'
+" }}}
+
+" vim-haml {{{ " Vim runtime files for Haml, Sass, and SCSS
+Bundle 'tpope/vim-haml'
+" }}}
+"
+" vim-rails {{{ Remember when everybody and their mother was using TextMate
+" for Ruby on Rails development? Well if it wasn't for rails.vim, we'd still
+" be in that era. So shut up and pay some respect.
+Bundle 'tpope/vim-rails'
+" }}}
+"
+" vim-repeat {{{ If you've ever tried using the . command after a plugin map,
+" you were likely disappointed to discover it only repeated the last native
+" command inside that map, rather than the map as a whole. That disappointment
+" ends today. Repeat.vim remaps . in a way that plugins can tap into it.
+Bundle 'tpope/vim-repeat'
+" }}}
+"
+" vim-speeddating {{{ Increment / Decrement dates and times
+Bundle 'tpope/vim-speeddating'
+" }}}
+"
+" vim-surround {{{ Surround.vim is all about "surroundings": parentheses, 
+" brackets, quotes, XML tags, and more. The plugin provides mappings to easily
+" delete, change and add such surroundings in pairs.
+Bundle 'tpope/vim-surround'
+" }}}
+"
+" vim-unimpaired {{{ Accelerated support for "pairs" of operations
+" (add line before or after current line, exchange current line
+" toggling options, encoding/decoding HTML, XML, URLs)
+Bundle 'tpope/vim-unimpaired'
+" }}}
+"
+" nerdcommenter {{{ Commenting support on steroids.
+Bundle 'scrooloose/nerdcommenter'
+" }}}
+"
+" nerdtree {{{ File/Directory browser
+Bundle 'scrooloose/nerdtree'
+" }}}
+"
+" syntastic {{{ High-performance syntax highlighting support
+Bundle 'scrooloose/syntastic'
+" }}}
+"
+" vim-space {{{ Remap the <Space> key in normal mode to cleverly repeat motions.
+" Also remaps Shift-Space and Backspace to reverse
+Bundle 'spiiph/vim-space'
+" }}}
+"
+" splice {{{ Resolve conflicts during three-way merges.  Note splice and fugitive
+" don't play well together.
+Bundle 'sjl/splice.vim'
+" }}}
+
+" vim-textobj-user {{{ create your own text objects without pain. It is hard to
+" 
+" create text objects, because there are many pitfalls to deal with. This plugin
+" hides such details and provides a declarative way to define text objects. You
+" can use regular expressions to define simple text objects, or use functions to
+" define complex ones.
+Bundle 'kana/vim-textobj-user'
+" }}}
+"
+" vim-textobj-rubyblock {{{ A custom text object for selecting Ruby blocks.
+" Needs textobj-user
+Bundle 'nelstrom/vim-textobj-rubyblock'
+" }}}
+"
+" YankRing.vim {{{ Implement the Emacs kill-ring functionality in Vim.
+Bundle 'vim-scripts/YankRing.vim'
+" }}}
+"
+" vim-indent-object {{{ Vim plugin that defines a new text object representing
+" lines of code at the same indent level. Useful for python/vim scripts, etc
+Bundle 'michaeljsmith/vim-indent-object'
+" }}}
+"
+" vim-matchit {{{ The matchit.vim script allows you to configure % to match 
+" more than just single characters.  You can match words and even regular
+" expressions.  Also, matching treats strings and comments (as recognized
+" by the syntax highlighting mechanism) intelligently. 
+Bundle 'jwhitley/vim-matchit'
+" }}}
+"
+"Bundle 'matthias-guenther/hammer.vim'
+"
+" vim-ruby {{{ Vim configuration files for editing and compiling Ruby
+Bundle 'vim-ruby/vim-ruby'
+" }}}
+"
+" vim-ruby-refactoring {{{ Refactoring tool for Ruby in Vim
+Bundle 'ecomba/vim-ruby-refactoring'
+" }}}
+"
+" vim-coffee-script {{{ Add support for syntax highlighting, indentation, 
+" buffer watching, compiling and linting CoffeeScript
+Bundle 'kchmck/vim-coffee-script'
+" }}}
+"
+" vim-powerline {{{ vim-powerline is a mode status line enhancer.
+" Might consider replacing this with https://github.com/Lokaltog/powerline
+" sometime in the future.
+Bundle 'Lokaltog/vim-powerline'
+" }}}
+"
+" ctrlp.vim {{{ (disabled)
+Bundle 'kien/ctrlp.vim'
+" }}}
+"
+" UltiSnips {{{ A snippets tool for Vim
+Bundle 'SirVer/ultisnips'
+" }}}
+"
+" mustache.vim {{{ Plugin for working with mustache and handlebars templates
+Bundle 'juvenn/mustache.vim.git'
+" }}}
+"
+" L9 {{{ Utility functions and commands for Vim
+Bundle 'L9'
+" }}}
+"
+" FuzzyFinder {{{ Quickly reach buffers/files/commands/bookmarks
+Bundle 'FuzzyFinder'
+" }}}
+"
+" vim-nerdtree-tabs {{{  Make NERDTree and tabs work better together
+Bundle 'jistr/vim-nerdtree-tabs'
+" }}}
+"
+" vim-sparkup {{{ Accelerators for writing HTML quickly
+Bundle 'tristen/vim-sparkup', {'rtp': 'vim/'}
+" }}}
+"
+" PyFlakes: {{{ On the fly Python syntax checking via PyFlakes, obsoleted by
+" Syntastic?
+Bundle 'pyflakes.vim'
+" }}}
+" 
+" mru {{{ The Most Recently Used (MRU) plugin provides an easy access to a list of
+" recently opened/edited files in Vim. This plugin automatically stores the
+" file names as you open/edit them in Vim.
+Bundle 'mru.vim'
+" }}}
+"
+" tComment {{{ Comment plugin--not needed because of NERDCommenter
+" Bundle 'tComment'
+" }}}
+"
+" pep8 {{{ Python code guideline checker, might not need it, commented out
+" Bundle 'pep8'
+" }}}
+"
+" minibufexpl {{{ Elegant buffer explorer
+Bundle 'minibufexpl.vim'
+" }}}
+"
+" indentpython.vim {{{ Special Python indenting support
+Bundle 'indentpython.vim'
+" }}}
+"
+" Pydiction {{{ Code-completion plugin superceded by rope and rope-omni 
+" Bundle 'Pydiction'
+" }}}
+"
+" gundo {{{ Visualize Vim undo tree
+Bundle 'sjl/gundo.vim'
+" }}}
+"
+" delimitMate {{{ This plug-in provides automatic closing of quotes, parenthesis, brackets,
+" etc., besides some other related features that should make your time in insert
+" mode a little bit easier, like syntax awareness (will not insert the closing
+" delimiter in comments and other configurable regions), <CR> and <Space>
+" expansions (off by default), and some more.
+Bundle 'Raimondi/delimitMate.git'
+" }}}
+"
+" prose {{{ Filetype plugin that assists in writing prose text
+Bundle 'cro/prose.vim'
+" }}}
+"
+" supertab {{{ Supertab is a vim plugin which allows you to use <Tab> for all
+" your insert completion needs (:help ins-completion).  Works with rope-omni
+" to map Tab to rope's completions.
+Bundle 'ervandew/supertab.git'
+" }}}
+"
+" rope-omni {{{ Make Supertab, Omnicompletion, and rope work together
+Bundle 'rygwdn/rope-omni.git'
+" }}}
+"
+" vim-mercenary {{{ Mercurial interface to Vim
+Bundle 'phleet/vim-mercenary'
+" }}}
+"
+" Colorschemes--badwolf, vim-colors-solarized, molokai {{{
+Bundle 'sjl/badwolf'
+Bundle 'altercation/vim-colors-solarized'
+Bundle 'tomasr/molokai'
+" }}} end colorschemes
+"
+" salt-vim {{{ Syntax files for Salt SLS
+Bundle 'saltstack/salt-vim'
+" }}}
+"
+" reStructuredText {{{ reStructuredText in vim
+Bundle 'Rykka/riv.vim'
+" }}}
+"
+" SviMTP {{{ Send email directly from Vim
+Bundle 'wes1138/SviMTP.vim'
+" }}}
+"
+" }}} end bundles
+
+" General {{{
+filetype plugin indent on
+colorscheme badwolf 
+syntax on
+autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
+autocmd FileType python set ai 
+set mouse=a
+
+" Highlight VCS conflict markers
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+
+" Leader is a comma (,), Local Leader is a backslash (\)
+let mapleader = ","
+let maplocalleader = "\\"
+" }}}
+
+" Completion and FuzzyFinder {{{
+
+let g:pydiction_location = '/Users/cro/.vim/Pydiction/complete-dict'
+
+" <F2> Fuzzy Finds File
+" <F3> Fuzzy Finds Tag
+nnoremap <F2> :FufFile<CR>
+nnoremap <F3> :FufTag<CR>
+" }}}
+
+" Mappings {{{
+
+map Y y$
+
+" bracket match using tab
+map <tab> %
+
+" clear highlight after search
+noremap <silent><Leader>/ :nohls<CR>
+
+" better ESC
+inoremap jk <Esc>
+
+nmap <silent> <leader>h :set invhlsearch<CR>
+nmap <silent> <leader>l :set invlist<CR>
+nmap <silent> <leader>n :set invnumber<CR>
+nmap <silent> <leader>p :set invpaste<CR>
+nmap <silent> <leader>i :set invrelativenumber<CR>
+
+nmap ; :<CR>
+
+" Emacs bindings in command line mode
+cnoremap <c-a> <home>
+cnoremap <c-e> <end>
+
+" Source current line
+vnoremap <leader>L y:execute @@<cr>
+
+" Source visual selection 
+nnoremap <leader>L ^vg_y:execute @@<cr>
+
+" }}}
+
+" . abbrevs {{{
+"
+iabbrev c@ cro@ncbt.org
+
+" . }}}
+
+" Settings {{{
+
+set autoread 
+set backspace=indent,eol,start
+set binary
+set cinoptions=:0,(s,u0,U1,g0,t0
+set completeopt=menuone,preview
+set hidden 
+set history=1000
+set incsearch 
+set laststatus=2 
+set list
+
+" Scroll when cursor gets within 3 characters of top/bottom edge
+set scrolloff=3
+
+set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+set showbreak=↪
+
+set notimeout
+set ttimeout
+set ttimeoutlen=10
+
+" _ backups {{{ 
+set undodir=~/.vim/tmp/undo//     " undo files
+set backupdir=~/.vim/tmp/backup// " backups
+set directory=~/.vim/tmp/swap//   " swap files
+set backup 
+set noswapfile 
+" _ }}}
+
+set modelines=0 
+set noeol
+set relativenumber
+set numberwidth=10
+set ruler 
+set shell=/bin/zsh 
+set showcmd 
+
+set matchtime=2
+
+set completeopt=longest,menuone,preview
+
+" White characters {{{
+set autoindent
+set smartindent
+set tabstop=4 
+set textwidth=80
+set shiftwidth=4 
+set softtabstop=4
+set expandtab
+set smarttab
+set wrap 
+set formatoptions=qrn1
+set colorcolumn=+1
+" }}}
+
+set visualbell 
+
+set wildignore=.svn,CVS,.git,.hg,*.o,*.a,*.class,*.mo,*.la,*.so,*.obj,*.swp,*.jpg,*.png,*.xpm,*.gif,.DS_Store,*.aux,*.out,*.toc,*.bak,*.pyc
+set wildmenu 
+
+set dictionary=/usr/share/dict/words
+
+let VCSCommandVCSTypeExplicitOverride="HG"
+
+" }}}
+
+" Triggers {{{
+
+" Save when losing focus
+au FocusLost    * :silent! wall
+" }}}
+
+" Cursorline {{{
+" Only show cursorline in the current window and in normal mode.
+augroup cline
+    au!
+    au WinLeave * set nocursorline
+    au WinEnter * set cursorline
+    au InsertEnter * set nocursorline
+    au InsertLeave * set cursorline
+augroup END
+" }}}
+
+" Trailing whitespace {{{
+" Only shown when not in insert mode so I don't go insane.
+augroup trailing
+    au!
+    au InsertEnter * :set listchars-=trail:⌴
+    au InsertLeave * :set listchars+=trail:⌴
+augroup END
+
+" }}}
+"
+" . searching {{{
+
+" sane regexes
+nnoremap / /\v
+vnoremap / /\v
+
+set ignorecase 
+set smartcase
+set showmatch 
+set gdefault
+set hlsearch
+
+" clear search matching
+noremap <leader><space> :noh<cr>:call clearmatches()<cr>
+
+" Don't jump when using * for search 
+nnoremap * *<c-o>
+
+" Keep search matches in the middle of the window.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when jumping around
+nnoremap g; g;zz
+nnoremap g, g,zz
+
+" Open a Quickfix window for the last search.
+nnoremap <silent> <leader>? :execute 'vimgrep /'.@/.'/g %'<CR>:copen<CR>
+
+" Begining & End of line in Normal mode 
+noremap H ^
+noremap L g_
+
+" Easy buffer navigation
+noremap <C-h>  <C-w>h
+noremap <C-j>  <C-w>j
+noremap <C-k>  <C-w>k
+noremap <C-l>  <C-w>l
+
+" Splits ,v and ,h to open new splits (vertical and horizontal)
+nnoremap <leader>v <C-w>v<C-w>l
+nnoremap <leader>s <C-w>s<C-w>j
+
+" Reselect visual block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Highlight word {{{
+
+nnoremap <silent> <leader>hh :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
+nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+" }}}
+" }}}
+
+" . folding {{{
+
+set foldlevelstart=0
+
+" Enter to toggle folds.
+nnoremap <Enter> za
+vnoremap <Enter> za
+
+" Make zO recursively open whatever top level fold we're in, no matter where the
+" cursor happens to be.
+nnoremap zO zCzO
+
+" Use ,z to "focus" the current fold.
+nnoremap <leader>z zMzvzz
+
+function! MyFoldText() " {{{
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+endfunction " }}}
+
+set foldtext=MyFoldText()
+
+" }}}
+"
+" Quick editing {{{
+
+nnoremap <leader>ev <C-w>s<C-w>j:e $MYVIMRC<cr>
+nnoremap <leader>es <C-w>s<C-w>j:e ~/.vim/snippets/<cr>
+nnoremap <leader>eg <C-w>s<C-w>j:e ~/.gitconfig<cr>
+nnoremap <leader>ez <C-w>s<C-w>j:e ~/.zshell/.zshrc<cr>
+nnoremap <leader>et <C-w>s<C-w>j:e ~/.tmux.conf<cr>
+nnoremap <leader>em <C-w>s<C-w>j:e ~/vimified/map_documentation.txt<cr>
+
+" }}}
+
+" --------------------
+
+set ofu=syntaxcomplete#Complete
+let g:rubycomplete_buffer_loading = 0
+let g:rubycomplete_classes_in_global = 1
+
+" showmarks
+let g:showmarks_enable = 1 
+hi! link ShowMarksHLl LineNr
+hi! link ShowMarksHLu LineNr
+hi! link ShowMarksHLo LineNr
+hi! link ShowMarksHLm LineNr
+
+" syntastic
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_python_checkers=['flake8']
+
+" delimitMate
+let g:delimitMate_expand_space = 1
+let g:delimitMate_expand_cr = 1
+
+" nerdtree
+nmap <C-u> :NERDTreeToggle<CR>
+
+" Get NERDTree out of the way when I open a file
+let g:NERDTreeQuitOnOpen = 1
+
+" ,t to show tags window
+nmap <leader>t :TagbarToggle<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Open Window Explorer NerdTree & Tagbar using (left-right sidebar) using <F8>
+"
+function! ToggleNERDTreeAndTagbar()
+    let w:jumpbacktohere = 1
+
+" Detect which plugins are open
+
+
+    if exists('t:NERDTreeBufName')
+        let nerdtree_open = bufwinnr(t:NERDTreeBufName) != -1
+    else
+        let nerdtree_open = 0
+    endif
+    let tagbar_open = bufwinnr('__Tagbar__') != -1
+
+" Perform the appropriate action
+    if nerdtree_open && tagbar_open
+        NERDTreeClose
+        TagbarClose
+    elseif nerdtree_open
+        TagbarOpen
+    elseif tagbar_open
+        NERDTreeTabsToggle
+    else
+        NERDTreeTabsToggle
+        TagbarOpen
+    endif
+
+" Jump back to the original window
+    for window in range(1, winnr('$'))
+        execute window . 'wincmd w'
+        if exists('w:jumpbacktohere')
+            unlet w:jumpbacktohere
+            break
+        endif
+    endfor
+endfunction
+
+" now you can open NERDTree and Tagbar using F8
+" http://stackoverflow.com/questions/6624043/how-to-open-or-close-nerdtree-and-tagbar-with-leader
+nmap <F8> :call ToggleNERDTreeAndTagbar()<CR>
+
+" TagBar Configuration
+let g:tagbar_usearrows=1
+let g:tagbar_width=30
+let g:tagbar_singleclick=1
+
+" Use leader + l to open Tagbar in Right side
+nnoremap <leader>l :TagbarToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""
+" NERDTree : https://github.com/scrooloose/nerdtree.git
+" MODIFYING NERDTree MY CUSTOM
+" how to using NERDTree :
+" http://ykyuen.wordpress.com/2011/04/04/nerdtree-the-file-explorer-in-vivim/
+"""""""""""""""""""""""""""""""""""""""""""
+
+" Enable this for make NERDTree load every opening files
+autocmd VimEnter * NERDTree " Make Always Load NERDTree every opening files
+autocmd VimEnter * wincmd p " Automatically go to buffer every time open files
+
+" FIXING NERDTree, automatically close if there no file edited
+"https://github.com/scrooloose/nerdtree/issues/21
+"
+autocmd WinEnter * call s:CloseIfOnlyNerdTreeLeft()
+
+" Use leader + . for opening File Explorer
+map <leader>t :NERDTreeTabsToggle<CR>
+let g:NERDTreeShowBookmarks=1
+let g:NERDTreeMouseMode=3
+let g:NERDTreeWinSize=30
+
+" Close all open buffers on entering a window if the only
+" buffer that's left is the NERDTree buffer
+function! s:CloseIfOnlyNerdTreeLeft()
+  if exists("t:NERDTreeBufName")
+    if bufwinnr(t:NERDTreeBufName) != -1
+      if winnr("$") == 1
+        q
+      endif
+    endif
+  endif
+endfunction
+
+" nerdcommenter
+nmap <leader># :call NERDComment(0, "invert")<cr>
+vmap <leader># :call NERDComment(0, "invert")<cr>
+
+" sessionman
+nmap <leader>S :SessionList<CR>
+nmap <leader>SS :SessionSave<CR>
+nmap <leader>SA :SessionSaveAs<CR>
+
+" minibufexpl
+let g:miniBufExplVSplit = 25
+let g:miniBufExplorerMoreThanOne = 100
+let g:miniBufExplUseSingleClick = 1
+nmap <Leader>b :MiniBufExplorer<cr>
+
+" yankring
+let g:yankring_replace_n_pkey = '<leader>['
+let g:yankring_replace_n_nkey = '<leader>]'
+let g:yankring_history_dir = '~/.vim/tmp'
+nmap <leader>y :YRShow<cr>
+
+
+" Fugitive
+" ,e for Ggrep
+nmap <leader>g :Ggrep
+
+" ,f for global git serach for word under the cursor (with highlight)
+nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
+
+" same in visual mode
+:vmap <leader>f y:let @/=escape(@", '\\[]$^*.')<CR>:set hls<CR>:silent Ggrep -F "<C-R>=escape(@", '\\"#')<CR>"<CR>:ccl<CR>:cw<CR><CR>
+
+
+" vim-indentobject
+let g:indentobject_meaningful_indentation = ["haml", "sass", "python", "yaml", "markdown"]
+
+" Hammer (currently disabled)
+" nmap <leader>p :Hammer<cr>
+
+
+" }}}
+
+" _ Vim {{{
+augroup ft_vim
+    au!
+
+    au FileType vim setlocal foldmethod=marker
+    au FileType help setlocal textwidth=78
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
+augroup END
+" }}}
+
+" PLUGINS {{{
+
+" _ Ack {{{
+nnoremap <leader>a :Ack!<space>
+" }}}
+
+" _ Powerline {{{
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_cache_enabled = 1
+" }}}
+
+" _ NeoCompl {{{
+let g:neocomplcache_enable_at_startup = 1
+" }}}
+
+" }}}
+
+" Extensions {{{
+
+" _ Scratch {{{
+
+command! ScratchToggle call ScratchToggle()
+
+function! ScratchToggle()
+    if exists("w:is_scratch_window")
+        unlet w:is_scratch_window
+        exec "q"
+    else
+        exec "normal! :Sscratch\<cr>\<C-W>J:resize 13\<cr>"
+        let w:is_scratch_window = 1
+    endif
+endfunction
+
+nnoremap <silent> <leader><tab> :ScratchToggle<cr>
+
+" }}}
+
+" _ Gist {{{
+" Send visual selection to gist.github.com as a private, filetyped Gist
+" Requires the gist command line too (brew install gist)
+vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+" }}}
+
+" }}}
+
+" TEXT OBJECTS {{{
+
+" Shortcut for [] motion {{{
+onoremap ir i[
+onoremap ar a[
+vnoremap ir i[
+vnoremap ar a[
+" }}}
+
+" }}}
+
+" Virtualenv support {{{
+"
+let g:virtualenv_auto_activate = 1
+
+" Function to activate a virtualenv in the embedded interpreter for
+" omnicomplete and other things like that.
+"function LoadVirtualEnv(path)
+    "let activate_this = a:path . '/bin/activate_this.py'
+        "if getftype(a:path) == "dir" && filereadable(activate_this)
+                "python << EOF
+"import vim
+"activate_this = vim.eval('l:activate_this')
+"execfile(activate_this, dict(__file__=activate_this))
+"EOF
+        "endif
+"endfunction
+
+"" Load up a 'stable' virtualenv if one exists in ~/.virtualenv
+"let defaultvirtualenv = $HOME . "/.virtualenvs/stable"
+""
+"" Only attempt to load this virtualenv if the defaultvirtualenv
+"" actually exists, and we aren't running with a virtualenv active.
+"if has("python")
+    "if empty($VIRTUAL_ENV) && getftype(defaultvirtualenv) == "dir"
+        "call LoadVirtualEnv(defaultvirtualenv)
+    "endif
+"endif
+" }}} 
+"
+" Extra vimrc {{{
+let s:extrarc = expand($HOME . '/.vim/local.vimrc')
+if filereadable(s:extrarc)
+    exec ':so ' . s:extrarc
+endif
+" }}}
+

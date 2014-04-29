@@ -1,0 +1,10 @@
+alias e='charm'
+alias komodo='open -a Komodo\ IDE'
+alias veewee='bundle exec veewee'
+alias vmrun='/Applications/VMWare\ Fusion.app/Contents/Library/vmrun'
+
+export PATH=/Users/cro/.rvm/gems/ruby-2.0.0-p247/bin:/opt/local/bin:/opt/local/sbin:/opt/local/lib/postgresql93/bin:$PATH
+
+export SHELL=/bin/zsh
+
+
