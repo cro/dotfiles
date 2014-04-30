@@ -7,3 +7,6 @@ set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style comman
 . ~/src/virtualfish/global_requirements.fish
 
 set fish_key_bindings fish_vi_key_bindings
+
+# Make fish be quiet on start
+set -U fish_greeting ""
