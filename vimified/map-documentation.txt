@@ -49,3 +49,6 @@ yss[delimiter] wrap line in delimeter
 
 In visual mode: S[delimeter], surrounds text with delimeter
 
+fuGitive:
+:Gstatus, show 'git status', '-' stages changes
+
