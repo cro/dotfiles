@@ -139,7 +139,7 @@ Bundle 'scrooloose/nerdcommenter'
 " }}}
 "
 " nerdtree {{{ File/Directory browser
-Bundle 'scrooloose/nerdtree'
+" Bundle 'scrooloose/nerdtree'
 " }}}
 "
 " syntastic {{{ High-performance syntax highlighting support
@@ -228,7 +228,7 @@ Bundle 'FuzzyFinder'
 " }}}
 "
 " vim-nerdtree-tabs {{{  Make NERDTree and tabs work better together
-Bundle 'jistr/vim-nerdtree-tabs'
+" Bundle 'jistr/vim-nerdtree-tabs'
 " }}}
 "
 " vim-sparkup {{{ Accelerators for writing HTML quickly
@@ -311,7 +311,15 @@ Bundle 'Rykka/riv.vim'
 " }}}
 "
 " SviMTP {{{ Send email directly from Vim
-Bundle 'wes1138/SviMTP.vim'
+" Bundle 'wes1138/SviMTP.vim'
+" }}}
+"
+" vim-vinegar {{{ tpope's "directory mode"
+Bundle "tpope/vim-vinegar"
+" }}}
+"
+" gitv {{{ Extension to tpope's fuGitive
+Bundle "gregsexton/gitv"
 " }}}
 "
 " }}} end bundles
@@ -606,9 +614,14 @@ nmap <C-u> :NERDTreeToggle<CR>
 " Get NERDTree out of the way when I open a file
 let g:NERDTreeQuitOnOpen = 1
 
+" Don't open NERDTree by default
+let g:nerdtree_tabs_open_on_gui_startup = 0
+let g:nerdtree_tabs_open_on_console_startup = 0
+
 " ,t to show tags window
 nmap <leader>t :TagbarToggle<CR>
 
+let g:tagbar_ctags_bin = '/opt/local/bin/ctags'
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Open Window Explorer NerdTree & Tagbar using (left-right sidebar) using <F8>
 "
@@ -668,8 +681,8 @@ nnoremap <leader>l :TagbarToggle<CR>
 """""""""""""""""""""""""""""""""""""""""""
 
 " Enable this for make NERDTree load every opening files
-autocmd VimEnter * NERDTree " Make Always Load NERDTree every opening files
-autocmd VimEnter * wincmd p " Automatically go to buffer every time open files
+" autocmd VimEnter * NERDTree " Make Always Load NERDTree every opening files
+" autocmd VimEnter * wincmd p " Automatically go to buffer every time open files
 
 " FIXING NERDTree, automatically close if there no file edited
 "https://github.com/scrooloose/nerdtree/issues/21
