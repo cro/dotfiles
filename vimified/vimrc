@@ -322,6 +322,10 @@ Bundle "tpope/vim-vinegar"
 Bundle "gregsexton/gitv"
 " }}}
 "
+" DirDiff {{{ Use VimDiff on directories
+Bundle "vim-scripts/DirDiff.vim"
+" }}}
+"
 " }}} end bundles
 
 " General {{{

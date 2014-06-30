@@ -2,19 +2,22 @@
 
 # Packages
 # Ubuntu/debian
-sudo apt-get install vim git zsh
+sudo apt-get install vim git zsh python-setuptools vim-gtk gnome-terminal
+sudo easy_install pip
+sudo pip install virtualenvwrapper
 
 # Arch
 # sudo pacman -Syu
-# sudo pacman -S vim git zsh
+# sudo pacman -S vim git zsh python-setuptools vim-gtk gnome-terminal
 
 
 
 chsh -s /bin/zsh
 sudo echo "export ZDOTDIR=~/.zshell" >> /etc/zsh/zshenv
-mkdir ~/vimified
-mkdir ~/vimified/tmp
-mkdir ~/vimified/bundle
+mkdir -p ~/vimified/tmp/undo
+mkdir -p ~/vimified/tmp/backup
+mkdir -p ~/vimified/tmp/swap
+mkdir -p ~/vimified/bundle
 
 ln -s ~/vimified ~/.vim
 
