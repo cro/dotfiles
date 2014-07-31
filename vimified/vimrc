@@ -212,7 +212,7 @@ Bundle 'kien/ctrlp.vim'
 " }}}
 "
 " UltiSnips {{{ A snippets tool for Vim
-" Bundle 'SirVer/ultisnips'
+Bundle 'SirVer/ultisnips'
 " }}}
 "
 " mustache.vim {{{ Plugin for working with mustache and handlebars templates
@@ -359,7 +359,8 @@ nnoremap <F3> :FufTag<CR>
 map Y y$
 
 " bracket match using tab
-map <tab> %
+" Disable to try to make UltiSnips work
+" map <tab> %
 
 " clear highlight after search
 noremap <silent><Leader>/ :nohls<CR>
@@ -612,6 +613,7 @@ let g:syntastic_python_checkers=['flake8']
 let g:delimitMate_expand_space = 1
 let g:delimitMate_expand_cr = 1
 
+
 " nerdtree
 nmap <C-u> :NERDTreeToggle<CR>
 
@@ -855,3 +857,8 @@ if filereadable(s:extrarc)
 endif
 " }}}
 
+
+" UltiSnips
+let g:UltiSnipsExpandTrigger="<F3>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
