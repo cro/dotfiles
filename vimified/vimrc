@@ -326,6 +326,14 @@ Bundle "gregsexton/gitv"
 Bundle "vim-scripts/DirDiff.vim"
 " }}}
 "
+" vimwiki {{{ A vim-based text-only wiki
+Bundle "vim-scripts/vimwiki"
+" }}}
+" 
+" vim VOoM {{{ Vim Outliner of Markers
+Bundle "vim-scripts/VOoM"
+" }}}
+"
 " }}} end bundles
 
 " General {{{

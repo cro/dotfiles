@@ -1,8 +1,6 @@
 set -g WORKON_HOME ~/src/ve
 set -g VIRTUALFISH_HOME ~/src/ve
 set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
-set -gx CFLAGS -Qunused-arguments
-set -gx CPPFLAGS -Qunused-arguments
 set -gx PATH ~/node_modules/.bin $PATH
 . ~/.config/fish/virtualfish/virtual.fish
 # optional plugins
@@ -15,3 +13,11 @@ set fish_key_bindings fish_vi_key_bindings
 # Make fish be quiet on start
 set -U fish_greeting ""
 
+if test -f ~/.config/fish/config.fish.(uname)
+    . ~/.config/fish/config.fish.(uname)
+end
+
+# Can't put this in github
+if test -f ~/.ec2/api
+    . ~/.ec2/api
+end
