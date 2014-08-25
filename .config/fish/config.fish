@@ -13,6 +13,9 @@ set fish_key_bindings fish_vi_key_bindings
 # Make fish be quiet on start
 set -U fish_greeting ""
 
+# Set PAR options
+# set -xg PARINIT 'rTbgqR B=.,?_A_a Q=_s>|'
+
 if test -f ~/.config/fish/config.fish.(uname)
     . ~/.config/fish/config.fish.(uname)
 end
