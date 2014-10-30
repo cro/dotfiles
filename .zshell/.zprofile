@@ -5,6 +5,10 @@ export HISTFILE=~/.zshell/history
 export SAVEHIST=100
 
 # Add virtualenvwrapper aliases
+if [[ -e /usr/local/bin/virtualenvwrapper.sh ]]
+source /usr/local/bin/virtualenvwrapper.sh
+else
+source /usr/local/bin/virtualenvwrapper.sh
 source /usr/local/bin/virtualenvwrapper.sh
 export WORKON_HOME=~/src/ve
 

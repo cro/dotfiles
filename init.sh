@@ -1,9 +1,17 @@
 #!/bin/bash
 # Packages
 # Ubuntu/debian
-sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential
+sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential python-devel
 sudo easy_install pip
 sudo pip install virtualenvwrapper rope ropevim pudb
+
+#
+# RH/CentOS
+sudo yum install vim git zsh python-setuptools gnome-terminal tmux python-devel zsh
+sudo yum groupinstall "Development Tools"
+sudo easy_install pip
+sudo pip install virtualenvwrapper rope ropevim pudb
+
 
 # Arch
 # sudo pacman -Syu

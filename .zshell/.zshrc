@@ -19,7 +19,7 @@ alias	l='ls -FC'
 alias	c=clear
 alias   rm='/bin/rm -i'
 alias	pd='popd'
-alias   sup='rvm use ruby-1.9.3; cd /Users/cro/src/sup; SUP_LOG_LEVEL=debug ruby -I lib -w bin/sup'
+alias   sup='rvm use ruby-2.1.1; cd /Users/cro/src/sup.git; SUP_LOG_LEVEL=debug ruby -I lib -w bin/sup'
 
 # where to look for function definitions
 # fpath=(~/func)
