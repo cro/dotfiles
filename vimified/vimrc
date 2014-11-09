@@ -311,6 +311,10 @@ Bundle 'tomasr/molokai'
 Bundle 'saltstack/salt-vim'
 " }}}
 "
+" clickable {{{ Make links clickable in RST files
+Bundle 'Rykka/clickable.vim'
+" "}}}
+"
 " reStructuredText {{{ reStructuredText in vim
 Bundle 'Rykka/riv.vim'
 " }}}
