@@ -14,10 +14,11 @@ call vundle#rc()
 
 Bundle 'gmarik/vundle'
 
+
 " Bundles and documentation {{{
 "
 " cromail {{{ C. R.'s mail bundle
-Bundle "cro/cromail"
+" Bundle "cro/cromail"
 " }}}
 "
 " neocomplete (completion with cache) {{{
@@ -27,7 +28,11 @@ Bundle "Shougo/neocomplete.vim"
 " vim-virtualenv {{{ Vimscript commands for activating virtualenvs
 Bundle "jmcantrell/vim-virtualenv"
 " }}}
-" 
+"
+" taskpaper {{{ Filetype and syntax highlight mode for Taskpaper files
+Bundle "davidoc/taskpaper.vim"
+" }}}
+"
 " vim-django-support {{{
 Bundle 'lambdalisue/vim-django-support'
 " http://www.vim.org/scripts/script.php?script_id=3841 Sets
@@ -358,6 +363,10 @@ Bundle "Shougo/vimproc.vim"
 Bundle "tsukkee/unite-tag"
 " }}}
 "
+" hemisu color scheme {{{
+Bundle "noahfrederick/vim-hemisu"
+" }}}
+"
 " vim-multiple-cursors {{{ ' multiple-select Sublime clone
 Bundle "terryma/vim-multiple-cursors"
 " }}}
@@ -366,11 +375,15 @@ Bundle "terryma/vim-multiple-cursors"
 Bundle "Shougo/vimshell"
 " }}}
 "
+" notmuch {{{ ' Email in vim
+Bundle 'notmuch.vim'
 " }}} end bundles
 
 " General {{{
 filetype plugin indent on
-colorscheme badwolf 
+colorscheme hemisu
+set guifont=PT\ Mono:h12
+set background=dark
 syntax on
 autocmd FileType ruby,eruby,yaml set ai sw=2 sts=2 et
 autocmd FileType python set ai 
@@ -386,7 +399,7 @@ let maplocalleader = "\\"
 
 " Completion and FuzzyFinder {{{
 
-let g:pydiction_location = '/Users/cro/.vim/Pydiction/complete-dict'
+" let g:pydiction_location = '/Users/cro/.vim/Pydiction/complete-dict'
 
 " <F2> Fuzzy Finds File
 " <F3> Fuzzy Finds Tag
@@ -884,8 +897,8 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 " Shell like behavior(not recommended).
 "set completeopt+=longest
 "let g:neocomplete#enable_auto_select = 1
-"let g:neocomplete#disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
+let g:neocomplete#disable_auto_complete = 1
+inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<C-x>\<C-u>"
 
 " Enable omni completion.
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
@@ -895,9 +908,9 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-" if !exists('g:neocomplete#sources#omni#input_patterns')
-"   let g:neocomplete#sources#omni#input_patterns = {}
-" endif
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
