@@ -6,6 +6,8 @@ vimified/bundle/*
 vimified/tmp/yankring_history_v2.txt
 .zshell/history*
 .zshell/.zcompdump
-.config/fish/generated_completions
+.config/fish/generated_completions/
 .config/fish/fish_history
 .config/fish/fishd*
+.config/gh-update
+.config/configstore/update-notifier-bower.yml
