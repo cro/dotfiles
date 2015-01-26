@@ -4,10 +4,5 @@ export RCS=1
 export HISTFILE=~/.zshell/history
 export SAVEHIST=100
 
-# Add virtualenvwrapper aliases
-source /usr/local/bin/virtualenvwrapper.sh
-export WORKON_HOME=~/src/ve
+alias vi vim
 
-if [ `uname` = "Linux" ]; then
-
-fi

@@ -376,7 +376,7 @@ Bundle "Shougo/vimshell"
 " }}}
 "
 " notmuch {{{ ' Email in vim
-Bundle 'notmuch.vim'
+" Bundle 'notmuch.vim'
 " }}} end bundles
 
 " General {{{

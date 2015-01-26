@@ -1,19 +1,22 @@
 #!/bin/bash
 # Packages
 # Ubuntu/debian
-grep -q Ubuntu /etc/issue
+grep -q Ubuntu /etc/issue || grep -q Debian /etc/issue
 if [ $? == 0 ]
 then
     sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential python-devel mosh
     sudo easy_install pip
+fi
+
+grep -q CentOS /etc/issue
+if [ $? == 0 ]
+then
+# RH/CentOS
+    sudo yum install vim git zsh python-setuptools gnome-terminal tmux python-devel zsh
+    sudo yum groupinstall "Development Tools"
+    sudo easy_install pip
     sudo pip install virtualenvwrapper rope ropevim pudb
 fi
-#
-# RH/CentOS
-# sudo yum install vim git zsh python-setuptools gnome-terminal tmux python-devel zsh
-# sudo yum groupinstall "Development Tools"
-# sudo easy_install pip
-# sudo pip install virtualenvwrapper rope ropevim pudb
 
 
 # Arch
@@ -22,6 +25,8 @@ if [ $? == 0 ]
 then
     sudo pacman -Syu --noconfirm
     sudo pacman -S --noconfirm mesa-libgl vim git fish zsh python2 python2-setuptools gnome-terminal tmux mosh python2-devel base-devel
+    sudo easy_install-2.7 pip
+    sudo pip install virtualenvwrapper rope ropevim pudb
 fi
 
 # Get my dotfiles
@@ -32,13 +37,17 @@ fi
 if [ -e /bin/zsh ]
 then
     chsh -s /bin/zsh
-else
+fi
+
+if [ -e /usr/bin/zsh ]
+then
     chsh -s /usr/bin/zsh
 fi
 
-# Make sure zsh knows where to look for startup files
-if [ -e /etc/zsh/zshenv ]; then
-    sudo echo "export ZDOTDIR=~/.zshell" >> /etc/zsh/zshenv
+grep -q "export ZDOTDIR" /etc/zsh/zshenv
+if [ $? == 0 ]
+then
+    sudo /bin/bash -c 'echo "export ZDOTDIR=~/.zshell" >> /etc/zsh/zshenv'
 fi
 
 # Get rid of default files
@@ -48,6 +57,7 @@ rm ~/.bashrc
 
 # NOTE all below depends on having CD'ed into the user's homedir
 # this is not always /home/USER, for root it is often /root
+# Furthermore, not every distro sets $HOME
 cd ~
 
 ln -s dotfiles/.zshell .zshell

@@ -5,11 +5,11 @@ export HISTFILE=~/.zshell/history
 export SAVEHIST=100
 
 # Add virtualenvwrapper aliases
-if [[ -e /usr/local/bin/virtualenvwrapper.sh ]]
-source /usr/local/bin/virtualenvwrapper.sh
+if [[ -e /usr/local/bin/virtualenvwrapper.sh ]]; then
+    source /usr/local/bin/virtualenvwrapper.sh
 else
-source /usr/local/bin/virtualenvwrapper.sh
-source /usr/local/bin/virtualenvwrapper.sh
+    source /usr/bin/virtualenvwrapper.sh
+fi
 export WORKON_HOME=~/src/ve
 
 if [ `uname` = "Darwin" ]; then
