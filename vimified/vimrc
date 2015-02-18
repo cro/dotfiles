@@ -381,7 +381,7 @@ Bundle "Shougo/vimshell"
 
 " General {{{
 filetype plugin indent on
-colorscheme hemisu
+colorscheme evening
 set guifont=PT\ Mono:h12
 set background=dark
 syntax on
