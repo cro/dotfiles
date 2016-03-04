@@ -21,6 +21,10 @@ Bundle 'gmarik/vundle'
 " Bundle "cro/cromail"
 " }}}
 "
+" elm-vim (Elm support in Vim) {{{
+Bundle "Elmcast/elm-vim"
+" }}}
+"
 " neocomplete (completion with cache) {{{
 Bundle "Shougo/neocomplete.vim"
 " }}}
@@ -369,11 +373,20 @@ Bundle "noahfrederick/vim-hemisu"
 "
 " vim-multiple-cursors {{{ ' multiple-select Sublime clone
 Bundle "terryma/vim-multiple-cursors"
-" }}}
+#!/viii" }}}
 "
 " vimshell {{{ ' A shell written in Vimscript
 Bundle "Shougo/vimshell"
 " }}}
+"
+" python_ifold {{{ ' Better folding for Python code
+" Bundle "vim-scripts/python_ifold"
+" }}}
+"
+" vim-yaml {{{ Core YAML support in Vim 7.4+ is very slow, use this instead
+Bundle "stephpy/vim-yaml"
+" }}}
+"
 "
 " notmuch {{{ ' Email in vim
 " Bundle 'notmuch.vim'
@@ -438,6 +451,11 @@ vnoremap <leader>L y:execute @@<cr>
 
 " Source visual selection 
 nnoremap <leader>L ^vg_y:execute @@<cr>
+
+" Tabs
+nnoremap <localleader>} :tabnew<cr>
+nnoremap <localleader>] :tabnext<cr>
+nnoremap <localleader>[ :tabprev<cr>
 
 " }}}
 
@@ -536,8 +554,8 @@ augroup END
 " Only shown when not in insert mode so I don't go insane.
 augroup trailing
     au!
-    au InsertEnter * :set listchars-=trail:⌴
-    au InsertLeave * :set listchars+=trail:⌴
+    au InsertEnter * :set listchars-=trail:.
+    au InsertLeave * :set listchars+=trail:.
 augroup END
 
 " }}}
@@ -613,23 +631,38 @@ nnoremap zO zCzO
 " Use ,z to "focus" the current fold.
 nnoremap <leader>z zMzvzz
 
-function! MyFoldText() " {{{
-    let line = getline(v:foldstart)
-
-    let nucolwidth = &fdc + &number * &numberwidth
-    let windowwidth = winwidth(0) - nucolwidth - 3
-    let foldedlinecount = v:foldend - v:foldstart
-
-    " expand tabs into spaces
-    let onetab = strpart('          ', 0, &tabstop)
-    let line = substitute(line, '\t', onetab, 'g')
-
-    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
-    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
-    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
-endfunction " }}}
-
 set foldtext=MyFoldText()
+function! MyFoldText()
+    let line = getline(v:foldstart)
+    let line2 = getline(v:foldstart + 1)
+    let sub = substitute(line . "|" . line2, '/\*\|\*/\|{{{\d\=', '', 'g')
+    let ind = indent(v:foldstart)
+    let lines = v:foldend-v:foldstart + 1
+    let i = 0
+    let spaces = ''
+    while i < (ind - ind/4)
+        let spaces .= ' '
+        let i = i+1
+    endwhile
+    return spaces . sub . ' --------(' . lines . ' lines)'
+endfunction
+
+"function! MyFoldText() " {{{
+"    let line = getline(v:foldstart)
+"
+"    let nucolwidth = &fdc + &number * &numberwidth
+"    let windowwidth = winwidth(0) - nucolwidth - 3
+"    let foldedlinecount = v:foldend - v:foldstart
+"
+"    " expand tabs into spaces
+"    let onetab = strpart('          ', 0, &tabstop)
+"    let line = substitute(line, '\t', onetab, 'g')
+"
+"    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+"    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+"    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
+"endfunction " }}}
+
 
 " }}}
 "
