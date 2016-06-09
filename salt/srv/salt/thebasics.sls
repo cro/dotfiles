@@ -1,13 +1,15 @@
 {% if grains['osfamily'] == 'FreeBSD' %}
 {% set zshloc='/usr/local/bin/zsh' %}
+{% set fishloc='/usr/local/bin/fish' %}
 {% else %}
 {% set zshloc='/usr/bin/zsh' %}
+{% set fishloc='/usr/bin/fish' %}
 {% endif %}
 
 
 
 uptodate:
-  pkg.uptodate:
+  pkg.upgrade:
     - refresh: True
 
 basic_pkgs:
@@ -25,7 +27,6 @@ basic_pkgs:
       - python-setuptools
 {% endif %}
 {% if grains['os'] == 'openSUSE' %}
-      - build-essential
       - python-devel
       - python-pip
       - python-pygit2
@@ -52,8 +53,6 @@ zdotdir:
     content: export ZDOTDIR=~/.zshell
     mode: ensure
 
-
-
 cro:
   user.present:
     - fullname: C. R. Oldham
@@ -76,10 +75,6 @@ git_user_email:
     - name: user.email
     - value: cro@ncbt.org
 
-
-https://github.com/cro/dotfiles:
-  git.latest:
-    - target: /home/cro/dotfiles 
 
 /home/cro/.profile:
   file.symlink:
@@ -123,7 +118,6 @@ https://github.com/cro/dotfiles:
     - dir_mode: 755  
     - file_mode: 644
     - makedirs: True
-
 
 /home/cro/vimified/tmp/backup:
   file.directory:
