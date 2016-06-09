@@ -4,7 +4,7 @@
 grep -q Ubuntu /etc/issue || grep -q Debian /etc/issue
 if [ $? == 0 ]
 then
-    sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential python-devel mosh
+    sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential python-dev mosh
     sudo easy_install pip
 fi
 

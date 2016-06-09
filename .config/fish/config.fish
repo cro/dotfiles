@@ -15,12 +15,12 @@ set -U fish_greeting ""
 # set -xg PARINIT 'rTbgqR B=.,?_A_a Q=_s>|'
 
 if test -f ~/.config/fish/config.fish.(uname)
-    . ~/.config/fish/config.fish.(uname)
+    source ~/.config/fish/config.fish.(uname)
 end
 
 # Can't put this in github
 if test -f ~/.ec2/api
-    . ~/.ec2/api
+    source ~/.ec2/api
 end
 
 # Paths to your tackle
@@ -41,5 +41,5 @@ set tacklebox_modules virtualfish virtualhooks
 set tacklebox_plugins python extract
 
 # Load Tacklebox configuration
-. ~/.tacklebox/tacklebox.fish
+source ~/.tacklebox/tacklebox.fish
 
