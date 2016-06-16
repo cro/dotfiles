@@ -1,79 +1,117 @@
 #!/bin/bash
+# Get my dotfiles
+# This is already done if we have this file :-)
+# git clone https://github.com/cro/dotfiles /root/dotfiles
+
 # Packages
 # Ubuntu/debian
 grep -q Ubuntu /etc/issue || grep -q Debian /etc/issue
 if [ $? == 0 ]
 then
-    sudo apt-get --assume-yes install vim git zsh python-setuptools vim-gtk gnome-terminal tmux build-essential python-dev mosh
-    sudo easy_install pip
+    sudo apt-get update
+    sudo apt-get -y install aptitude
+    sudo aptitude -y full-upgrade
+    sudo apt-get --assume-yes install salt-minion
 fi
 
-grep -q CentOS /etc/issue
+grep -q "CentOS" /etc/redhat-release
 if [ $? == 0 ]
 then
 # RH/CentOS
-    sudo yum install vim git zsh python-setuptools gnome-terminal tmux python-devel zsh
-    sudo yum groupinstall "Development Tools"
-    sudo easy_install pip
-    sudo pip install virtualenvwrapper rope ropevim pudb
+    yum upgrade -y
+    sudo yum install -y epel-release salt-minion
+    sudo yum groupinstall -y "Development Tools"
 fi
-
 
 # Arch
 grep -q Arch /etc/issue
 if [ $? == 0 ]
 then
     sudo pacman -Syu --noconfirm
-    sudo pacman -S --noconfirm mesa-libgl vim git fish zsh python2 python2-setuptools gnome-terminal tmux mosh python2-devel base-devel
-    sudo easy_install-2.7 pip
-    sudo pip install virtualenvwrapper rope ropevim pudb
+    sudo pacman -S --noconfirm salt-minion
 fi
 
-# Get my dotfiles
-# This is already done if we have this file :-)
-# git clone https://github.com/cro/dotfiles /root/dotfiles
-
-# Change my shell to zsh
-if [ -e /bin/zsh ]
-then
-    chsh -s /bin/zsh
-fi
-
-if [ -e /usr/bin/zsh ]
-then
-    chsh -s /usr/bin/zsh
-fi
-
-grep -q "export ZDOTDIR" /etc/zsh/zshenv
+# Tumbleweed
+grep -q openSUSE /etc/issue 
 if [ $? == 0 ]
 then
-    sudo /bin/bash -c 'echo "export ZDOTDIR=~/.zshell" >> /etc/zsh/zshenv'
+    sudo zypper --gpg-auto-import-keys -y dup
+    sudo zypper --gpg-auto-import-keys -y install salt-minion
 fi
 
-# Get rid of default files
-rm ~/.profile
-rm ~/.bashrc
+# FreeBSD
+uname -a | grep -q FreeBSD
+if [ $? == 0 ]
+then
+    export ASSUME_ALWAYS_YES=yes
+    pkg upgrade
+    pkg install bash py27-salt
+fi
 
-
-# NOTE all below depends on having CD'ed into the user's homedir
-# this is not always /home/USER, for root it is often /root
-# Furthermore, not every distro sets $HOME
 cd ~
+CWD=`pwd`
+export SALT_CONFIG_DIR=$CWD/dotfiles/salt
+mkdir -p $CWD/dotfiles/salt/etc/salt
+mkdir -p $CWD/dotfiles/salt/etc/salt
+mkdir -p $CWD/dotfiles/salt/var/cache/salt
+mkdir -p $CWD/dotfiles/salt/var/log/salt
+echo "
+file_roots:
+  base:
+    - $CWD/dotfiles/salt/srv/salt
 
-ln -s dotfiles/.zshell .zshell
-ln -s dotfiles/.profile .profile
-ln -s dotfiles/.gitconfig .gitconfig
-ln -s dotfiles/.config .config
-ln -s dotfiles/.bashrc .bashrc
+pillar_roots:
+  base:
+    - $CWD/dotfiles/salt/srv/pillar
 
-mkdir -p vimified/tmp/undo
-mkdir -p vimified/tmp/backup
-mkdir -p vimified/tmp/swap
-mkdir -p vimified/bundle
+root_dir: $CWD/dotfiles/salt" > $CWD/dotfiles/salt/etc/salt/minion
 
-ln -s vimified .vim
-ln -s dotfiles/vimified/vimrc .vimrc
+salt-call --local state.sls thebasics
 
-git clone https://github.com/gmarik/Vundle.vim.git .vim/bundle/vundle
-  
-vim +BundleInstall +qall
+
+## Change my shell to zsh
+#if [ -e /bin/zsh ]
+#then
+#    chsh -s /bin/zsh
+#fi
+#
+#if [ -e /usr/bin/zsh ]
+#then
+#    chsh -s /usr/bin/zsh
+#fi
+#
+#grep -q "export ZDOTDIR" /etc/zsh/zshenv
+#if [ $? == 0 ]
+#then
+#    sudo /bin/bash -c 'echo "export ZDOTDIR=~/.zshell" >> /etc/zsh/zshenv'
+#fi
+#
+## Get rid of default files
+#rm ~/.profile
+#rm ~/.bashrc
+#
+#
+## NOTE all below depends on having CD'ed into the user's homedir
+## this is not always /home/USER, for root it is often /root
+## Furthermore, not every distro sets $HOME
+#cd ~
+#
+#ln -s dotfiles/.zshell .zshell
+#ln -s dotfiles/.profile .profile
+#ln -s dotfiles/.gitconfig .gitconfig
+#ln -s dotfiles/.config .config
+#ln -s dotfiles/.bashrc .bashrc
+#
+#mkdir -p vimified/tmp/undo
+#mkdir -p vimified/tmp/backup
+#mkdir -p vimified/tmp/swap
+#mkdir -p vimified/bundle
+#
+#ln -s vimified .vim
+#ln -s dotfiles/vimified/vimrc .vimrc
+#ln -s dotfiles/.emacs.d .emacs.d
+#ln -s dotfiles/.spacemacs .spacemacs
+#
+#git clone https://github.com/gmarik/Vundle.vim.git .vim/bundle/vundle
+#  
+#vim +BundleInstall +qall
