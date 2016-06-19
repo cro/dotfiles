@@ -52,7 +52,6 @@ cd ~
 CWD=`pwd`
 export SALT_CONFIG_DIR=$CWD/dotfiles/salt
 mkdir -p $CWD/dotfiles/salt/etc/salt
-mkdir -p $CWD/dotfiles/salt/etc/salt
 mkdir -p $CWD/dotfiles/salt/var/cache/salt
 mkdir -p $CWD/dotfiles/salt/var/log/salt
 echo "
@@ -64,10 +63,11 @@ pillar_roots:
   base:
     - $CWD/dotfiles/salt/srv/pillar
 
+file_client: local
+
 root_dir: $CWD/dotfiles/salt" > $CWD/dotfiles/salt/etc/salt/minion
 
 salt-call --local state.sls thebasics
-
 
 ## Change my shell to zsh
 #if [ -e /bin/zsh ]

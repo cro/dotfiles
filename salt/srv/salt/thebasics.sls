@@ -6,8 +6,6 @@
 {% set fishloc='/usr/bin/fish' %}
 {% endif %}
 
-
-
 uptodate:
   pkg.upgrade:
     - refresh: True
@@ -56,7 +54,7 @@ zdotdir:
 cro:
   user.present:
     - fullname: C. R. Oldham
-    - shell: {{ zshloc }}
+    - shell: {{ fishloc }}
     - home: /home/cro
     - groups:
       - wheel
