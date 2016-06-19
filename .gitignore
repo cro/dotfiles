@@ -4,6 +4,7 @@ vimified/tmp/backup/*
 vimified/tmp/swap/*
 vimified/bundle/*
 vimified/tmp/yankring_history_v2.txt
+vimified/.netrwhist
 var/cache/salt/*
 var/log/salt/*
 .zshell/history*
