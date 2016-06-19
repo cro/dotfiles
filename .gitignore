@@ -4,6 +4,8 @@ vimified/tmp/backup/*
 vimified/tmp/swap/*
 vimified/bundle/*
 vimified/tmp/yankring_history_v2.txt
+var/cache/salt/*
+var/log/salt/*
 .zshell/history*
 .zshell/.zcompdump
 .config/fish/generated_completions/
