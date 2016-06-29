@@ -4,3 +4,6 @@
 [submodule "tackle"]
 	path = .tackle
 	url = https://github.com/justinmayer/tackle
+[submodule "tacklebox"]
+	path = tacklebox
+	url = https://github.com/justinmayer/tacklebox
