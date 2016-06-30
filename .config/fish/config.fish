@@ -2,11 +2,11 @@ set -g WORKON_HOME ~/src/ve
 set -g VIRTUALFISH_HOME ~/src/ve
 set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
 set -gx PATH ~/bin ~/dotfiles/bin ~/node_modules/.bin $PATH
-set -gx EDITOR /usr/local/bin/emacsclient
 
 # eval (/usr/bin/python -m virtualfish compat_aliases)
 
 set fish_key_bindings fish_vi_key_bindings
+set -g __fish_vi_mode 1
 
 # Make fish be quiet on start
 set -U fish_greeting ""
