@@ -1,0 +1,4 @@
+#!/bin/bash
+export SALT_CONFIG_DIR=~/dotfiles/salt/etc/salt
+salt-call --local state.sls thebasics-$USER
+

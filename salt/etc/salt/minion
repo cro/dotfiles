@@ -1,0 +1,13 @@
+root_dir: /home/cro/dotfiles/salt
+conf_file: /etc/salt/minion
+file_roots:
+  base:
+    - /home/cro/dotfiles/salt/srv/salt
+
+pillar_roots:
+  base:
+    - /home/cro/dotfiles/salt/srv/pillar
+
+
+file_client: local
+
