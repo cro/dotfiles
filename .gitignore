@@ -22,3 +22,4 @@ var/log/salt/*
 .config/fish/race_test_history
 .config/htop/
 .config/xm1/
+.config/configstore/update-notifier-bower.yml
