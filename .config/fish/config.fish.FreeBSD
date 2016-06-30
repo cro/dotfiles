@@ -1,11 +1,3 @@
-set -gx CFLAGS -Qunused-arguments
-set -gx CPPFLAGS -Qunused-arguments
-
-set -gx JAVA_HOME (/usr/libexec/java_home)
-set -gx PATH ~/dotfiles/bin /usr/local/bin /usr/local/ec2/ec2-api-tools-1.7.1.0/bin /opt/salt/bin $PATH
-set -gx EC2_HOME /usr/local/ec2/ec2-api-tools-1.7.1.0
-set -gx PGDATA /opt/local/var/db/postgresql94/defaultdb
-
 set -gx EDITOR /usr/local/bin/emacsclient
 
 if status --is-login
