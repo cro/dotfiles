@@ -14,10 +14,6 @@ set -U fish_greeting ""
 # Set PAR options
 # set -xg PARINIT 'rTbgqR B=.,?_A_a Q=_s>|'
 
-if test -f ~/.config/fish/config.fish.(uname)
-    source ~/.config/fish/config.fish.(uname)
-end
-
 # Can't put this in github
 if test -f ~/.ec2/api
     source ~/.ec2/api
@@ -43,3 +39,6 @@ set tacklebox_plugins python extract
 # Load Tacklebox configuration
 source ~/.tacklebox/tacklebox.fish
 
+if test -f ~/.config/fish/config.fish.(uname)
+    source ~/.config/fish/config.fish.(uname)
+end
