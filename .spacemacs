@@ -18,12 +18,6 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
-     shell-scripts
-     ;; ----------------------------------------------------------------
-     ;; Example of useful layers you may want to use right away.
-     ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
-     ;; <M-m f e R> (Emacs style) to install them.
-     ;; ----------------------------------------------------------------
      auto-completion
      better-defaults
      emacs-lisp
@@ -44,6 +38,10 @@ values."
      javascript
      lua
      yaml
+     erlang
+     elixir
+     company-mode
+     perspectives
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -100,7 +98,7 @@ values."
    ;; `dotspacemacs-startup-lists' doesn't include `recents'. (default 5)
    dotspacemacs-startup-recent-list-size 5
    ;; Default major mode of the scratch buffer (default `text-mode')
-   dotspacemacs-scratch-mode 'lisp-interactive-mode
+   dotspacemacs-scratch-mode 'text-mode
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
@@ -268,7 +266,10 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(org-default-notes-file "~/vimwiki/notes.org"))
+ '(org-default-notes-file "~/vimwiki/notes.org")
+ '(package-selected-packages
+   (quote
+    (persp-mode org-plus-contrib neotree help-fns+ helm-themes helm-pydoc helm-ag ace-jump-helm-line iedit smartparens projectile helm magit git-commit xterm-color ws-butler with-editor window-numbering which-key web-mode web-beautify volatile-highlights vi-tilde-fringe use-package toc-org tagedit spacemacs-theme spaceline smooth-scrolling smeargle slim-mode shell-pop scss-mode sass-mode salt-mode ruby-end restart-emacs rainbow-delimiters quelpa pyvenv pytest pyenv-mode py-yapf popwin pip-requirements pcre2el paradox page-break-lines orgit org-repo-todo org-present org-pomodoro org-bullets open-junk-file multi-term move-text markdown-toc magit-gitflow macrostep lua-mode lorem-ipsum linum-relative leuven-theme less-css-mode json-mode js2-refactor js-doc jade-mode info+ indent-guide ido-vertical-mode hy-mode hungry-delete htmlize hl-todo highlight-parentheses highlight-numbers highlight-indentation helm-swoop helm-projectile helm-mode-manager helm-make helm-gitignore helm-flyspell helm-flx helm-descbinds helm-css-scss helm-core helm-company helm-c-yasnippet google-translate golden-ratio gnuplot gitconfig-mode gitattributes-mode git-timemachine git-messenger git-gutter-fringe git-gutter-fringe+ gh-md flycheck-pos-tip flycheck-elm flx-ido fill-column-indicator fancy-battery expand-region exec-path-from-shell evil-visualstar evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-magit evil-lisp-state evil-indent-plus evil-iedit-state evil-exchange evil-escape evil-args evil-anzu eval-sexp-fu eshell-prompt-extras esh-help erlang emmet-mode elm-mode elisp-slime-nav ein diff-hl define-word cython-mode company-web company-tern company-statistics company-quickhelp company-anaconda coffee-mode clean-aindent-mode buffer-move bracketed-paste auto-yasnippet auto-highlight-symbol auto-dictionary auto-compile alchemist aggressive-indent adaptive-wrap ace-window ace-link ac-ispell))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

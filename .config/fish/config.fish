@@ -1,7 +1,7 @@
 set -g WORKON_HOME ~/src/ve
 set -g VIRTUALFISH_HOME ~/src/ve
 set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
-set -gx PATH ~/bin ~/dotfiles/bin ~/node_modules/.bin $PATH
+set -gx PATH ~/bin ~/dotfiles/bin /usr/local/elixir/bin ~/node_modules/.bin $PATH
 
 # eval (/usr/bin/python -m virtualfish compat_aliases)
 
