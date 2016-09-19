@@ -1,0 +1,10 @@
+#!/bin/bash
+
+SALT_CONFIG_DIR=$HOME/dotfiles/salt/etc/salt
+
+if [ "$1" = "-q" ]; then
+   shift
+   salt-call --local "$@" 2>/dev/null
+else
+   salt-call --local "$@" 
+fi

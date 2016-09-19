@@ -5,6 +5,19 @@
 
 # Packages
 # Ubuntu/debian
+grep -q Debian /etc/issue
+if [ $? == 0 ]
+then
+    wget -O - https://repo.saltstack.com/apt/debian/8/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+    echo "deb http://repo.saltstack.com/apt/debian/8/amd64/latest jessie main" > /etc/apt/sources.list.d/saltstack.list
+fi
+
+grep -q Ubuntu /etc/issue
+if [ $? == 0 ]
+then
+    wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
+    echo "deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main" > /etc/apt/sources.list.d/saltstack.list
+fi
 grep -q Ubuntu /etc/issue || grep -q Debian /etc/issue
 if [ $? == 0 ]
 then

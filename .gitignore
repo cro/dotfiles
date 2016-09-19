@@ -7,6 +7,7 @@ vimified/tmp/yankring_history_v2.txt
 vimified/.netrwhist
 var/cache/salt/*
 var/log/salt/*
+salt/etc/salt/minion_id
 .#*
 .zshell/history*
 .zshell/.zcompdump
