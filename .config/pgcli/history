@@ -1,0 +1,9 @@
+
+# 2016-07-02 16:15:50.808102
++\dt
+
+# 2016-07-02 16:16:07.671651
++select * from reg_registrationsettings;
+
+# 2016-07-02 16:17:20.214593
++update reg_registrationsettings set coordinator_reg_start='2016-01-01', coordinator_reg_end='2016-12-31',family_reg_end='2016-12-31',family_reg_start='2016-01-01';

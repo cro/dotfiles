@@ -24,3 +24,4 @@ var/log/salt/*
 .config/htop/
 .config/xm1/
 .config/configstore/update-notifier-bower.yml
+.config/sparkleshare/
