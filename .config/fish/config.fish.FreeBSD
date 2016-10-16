@@ -1,4 +1,4 @@
-set -gx EDITOR /usr/local/bin/emacsclient
+set -gx EDITOR spct
 
 if status --is-login
     set PPID (ps -p %self -o ppid | tail -1 | xargs)

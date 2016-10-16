@@ -26,3 +26,4 @@ salt/etc/salt/minion_id
 .config/xm1/
 .config/configstore/update-notifier-bower.yml
 .config/sparkleshare/
+.config/pudb/saved-breakpoints-2.7

@@ -28,6 +28,12 @@ basic_pkgs:
       - python2-pygit2
       - python2-setuptools
 {% endif %}
+{% if grains['os'] == 'Arch' %}
+      - base-devel
+      - python2-pip
+      - python2-pygit2
+      - python2-setuptools
+{% endif %}
 {% if grains['os'] == 'openSUSE' %}
 zypper --gpg-auto-import-keys --non-interactive -t pattern basis_devel:
   cmd.run
@@ -42,4 +48,6 @@ zdotdir:
     - name: {{ base }}/etc/zsh/zshenv
     - content: export ZDOTDIR=~/.zshell
     - mode: ensure
+
+
 

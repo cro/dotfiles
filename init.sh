@@ -18,6 +18,7 @@ then
     wget -O - https://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest/SALTSTACK-GPG-KEY.pub | sudo apt-key add -
     echo "deb http://repo.saltstack.com/apt/ubuntu/16.04/amd64/latest xenial main" > /etc/apt/sources.list.d/saltstack.list
 fi
+
 grep -q Ubuntu /etc/issue || grep -q Debian /etc/issue
 if [ $? == 0 ]
 then
@@ -33,7 +34,6 @@ then
 # RH/CentOS
     yum upgrade -y
     sudo yum install -y epel-release salt-minion
-    sudo yum groupinstall -y "Development Tools"
 fi
 
 # Arch
@@ -79,6 +79,8 @@ pillar_roots:
 file_client: local
 
 root_dir: $CWD/dotfiles/salt" > $CWD/dotfiles/salt/etc/salt/minion
+
+echo `hostname`-salt > $CWD/dotfiles/salt/etc/salt/minion_id
 
 salt-call --local state.sls thebasics
 
