@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# spc: Start emacsclient
+#
+# -W: Wait for emacsserver.  This is not an emacsclient switch.  Emacsclient's default
+# is to always wait, but my default use case is never to wait.  If -W is passed
+# as the first option we shift it off.  Regardless of -W all the other opts are passed
+# verbatim to emacsclient
+#
+
+ps guax | grep -v grep | grep Emacs > /dev/null
+
+if [ "$?" == "1" ]; then
+    open /Applications/Emacs.app
+    sleep 2
+fi
+
+if [ "$1" == "-W" ] || [ "$1" == "-t" ]; then
+    WAIT=""
+    if [ "$1" == "-W" ]; then
+        shift
+    fi
+else
+    WAIT="--no-wait"
+fi
+
+/usr/bin/false
+for i in `seq 1 10`;
+do
+    if [ "$1" == "-t" ]; then
+        /usr/local/bin/emacsclient $WAIT "$@"
+    else
+        /usr/local/bin/emacsclient $WAIT "$@" &> /dev/null
+    fi
+    if [ "$?" == "0" ]; then
+        break
+    else
+        echo "Waiting for Emacs..."
+        sleep 2
+    fi
+done

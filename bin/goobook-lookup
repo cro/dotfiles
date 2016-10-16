@@ -1,0 +1,2 @@
+#!/bin/bash
+goobook query "$@" | gawk -F'\t' '/.+/ {print $1 "\t" "\""$2 "\""}'

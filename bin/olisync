@@ -1,0 +1,6 @@
+#!/bin/bash
+
+
+~/.offlineimap/pre-sync
+offlineimap
+~/.offlineimap/post-sync
