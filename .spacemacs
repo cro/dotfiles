@@ -31,22 +31,72 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     shell-scripts
+     csv
+     nginx
+     lua
+     salt
+     javascript
+     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
      ;; <M-m f e R> (Emacs style) to install them.
      ;; ----------------------------------------------------------------
-     ivy
-     auto-completion
+     helm
+     (auto-completion :variables
+                      auto-completion-enable-snippets-in-popup t
+                      auto-completion-complete-with-key-sequence "df")
      better-defaults
      emacs-lisp
      git
      markdown
+     python
+     elm 
+     elixir
      (org :variables
-          org-directory "/Users/cro/vimwiki"
-          org-agenda-files '("/Users/cro/vimwiki/")
           org-enable-github-support t
-          org-enable-reveal-js-support t)
+          org-enable-reveal-js-support t
+          org-directory "/Users/cro/org/active"
+          org-agenda-files '("/Users/cro/org/active")
+          org-default-notes-file "~/org/active/notes.org"
+          org-todo-keywords (quote 
+                             ((sequence "TODO(t)" "NEXT(n)" "|" "DONE(d)")
+                              (sequence "WAITING(w@/!)" "HOLD(h@/!)" "|" "CANCELLED(c@/!)" "PHONE" "MEETING")))
+          org-todo-keyword-faces (quote (("TODO" :foreground "red" :weight bold)
+                                         ("NEXT" :foreground "light slate blue" :weight bold)
+                                         ("DONE" :foreground "forest green" :weight bold)
+                                         ("WAITING" :foreground "orange" :weight bold)
+                                         ("HOLD" :foreground "magenta" :weight bold)
+                                         ("CANCELLED" :foreground "forest green" :weight bold)
+                                         ("MEETING" :foreground "forest green" :weight bold)
+                                         ("PHONE" :foreground "forest green" :weight bold)))
+          org-capture-templates
+            (quote (("t" "todo" entry (file "~/org/active/notes.org")
+                    "* TODO %?\n%U\n%a\n")
+                    ("r" "respond" entry (file "~/org/active/notes.org")
+                    "* NEXT Respond to %:from on %:subject\nSCHEDULED: %t\n%U\n%a\n" :clock-in t :clock-resume t :immediate-finish t)
+                    ("n" "note" entry (file "~/org/active/notes.org")
+                    "* %? :NOTE:\n%U\n%a\n")
+                    ("j" "Journal" entry (file+datetree "~/org/active/diary.org")
+                    "* %?\n%U\n")
+                    ("w" "org-protocol" entry (file "~/org/active/notes.org")
+                    "* TODO Review %c\n%U\n" :immediate-finish t)
+                    ("m" "Meeting" entry (file "~/org/active/notes.org")
+                    "* MEETING with %? :MEETING:\n%U")
+                    ("p" "Phone call" entry (file "~/org/active/notes.org")
+                    "* PHONE %? :PHONE:\n%U")
+                    ("h" "Habit" entry (file "~/org/active/notes.org")
+                    "* NEXT %?\n%U\n%a\nSCHEDULED: %(format-time-string \"%<<%Y-%m-%d %a .+1d/3d>>\")\n:PROPERTIES:\n:STYLE: habit\n:REPEAT_TO_STATE: NEXT\n:END:\n")))
+          org-refile-targets (quote ((nil :maxlevel . 9)
+                                     (org-agenda-files :maxlevel . 9)))
+          ; Use full outline paths for refile targets - we file directly with IDO
+          org-refile-use-outline-path t
+          ; Targets complete directly with IDO
+          org-outline-path-complete-in-steps nil
+          ; Allow refile to create parent tasks with confirmation
+          org-refile-allow-creating-parent-nodes (quote confirm)
+     )
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom
@@ -55,27 +105,13 @@ values."
      spell-checking
      syntax-checking
      version-control
-     salt
-     (python :variables
-             python-fill-column 79)
-     elm
-     html
-     ipython-notebook
-     javascript
-     lua
-     yaml
-     erlang
-     elixir
-     cro-circe
-     slack
-     emoji
-    )
+     )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '(notmuch
-                                      helm-notmuch)
+   dotspacemacs-additional-packages '(use-package
+                                       helm-org-rifle)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -160,6 +196,11 @@ values."
                                :powerline-scale 1.1)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
+   ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
+   ;; (default "SPC")
+   dotspacemacs-emacs-command-key "SPC"
+   ;; The key used for Vim Ex commands (default ":")
+   dotspacemacs-ex-command-key ":"
    ;; The leader key accessible in `emacs state' and `insert state'
    ;; (default "M-m")
    dotspacemacs-emacs-leader-key "M-m"
@@ -167,11 +208,8 @@ values."
    ;; pressing `<leader> m`. Set it to `nil` to disable it. (default ",")
    dotspacemacs-major-mode-leader-key ","
    ;; Major mode leader key accessible in `emacs state' and `insert state'.
-   ;; (default "C-M-m)
+   ;; (default "C-M-m")
    dotspacemacs-major-mode-emacs-leader-key "C-M-m"
-   ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
-   ;; (default "SPC")
-   dotspacemacs-emacs-command-key "SPC"
    ;; These variables control whether separate commands are bound in the GUI to
    ;; the key pairs C-i, TAB and C-m, RET.
    ;; Setting it to a non-nil value, allows for separate commands under <C-i>
@@ -285,7 +323,7 @@ values."
    dotspacemacs-highlight-delimiters 'all
    ;; If non nil, advise quit functions to keep server open when quitting.
    ;; (default nil)
-   dotspacemacs-persistent-server t
+   dotspacemacs-persistent-server nil
    ;; List of search tool executable names. Spacemacs uses the first installed
    ;; tool of the list. Supported tools are `ag', `pt', `ack' and `grep'.
    ;; (default '("ag" "pt" "ack" "grep"))
@@ -318,111 +356,33 @@ layers configuration.
 This is the place where most of your configurations should be done. Unless it is
 explicitly specified that a variable should be set before a package is loaded,
 you should place your code here."
-  (add-to-list 'load-path (expand-file-name "~/.emacs.d/private/local"))
   (setq-default
-   evil-escape-key-sequence "jk")
-  (setq mail-user-agent 'message-user-agent)
-  ;; add Cc and Bcc headers to the message buffer
-  (setq message-default-mail-headers "Cc: \nBcc: \n")
-  ;; postponed message is put in the following draft file
-  (setq message-auto-save-directory "~/.mail/ncbt/drafts")
-  (setq send-mail-function 'sendmail-send-it)
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  (setq message-sendmail-envelope-from 'header)
-  (require 'gnus-alias)
-  (gnus-alias-init)
-  (autoload 'gnus-alias-determine-identity "gnus-alias" "" t)
-  (add-hook 'message-setup-hook 'gnus-alias-determine-identity)
-  (require 'external-abook)
-  ;; Determine identity when message-mode loads
-  (defun harden-newlines ()
-    (save-excursion
-      (goto-char (point-min))
-      (while (search-forward "\n" nil t)
-        (put-text-property (1- (point)) (point) 'hard t))))
+     evil-escape-key-sequence "jk")
+  (setq-default holy-mode nil)
+  (visual-line-mode t)
+  ; This enables remote editing that requires sudo
+  ; Example: execute find-file, then /sudo:root@host[#port]:/path/to/file
+  (set-default 'tramp-default-proxies-alist (quote ((".*" "\\`root\\'" "/ssh:%h:"))))
+  (setq tramp-default-method "ssh")
 
-  (setq fill-flowed-display-column nil)
+  ; Global set keys.  Other set keys are in the helm-rifle layers
+  (global-set-key [f6] 'auto-fill-mode)
+  (global-set-key [S-f6] 'fill-paragraph)
+  (global-set-key [s-f6] 'visual-line-mode)
 
-  ;; The following line is needed since emacs 24.1:
-  (setq gnus-treat-fill-long-lines nil)
+   ;; Keybindings for helm-org-rifle
 
-  (add-hook 'message-setup-hook
-            (lambda ()
-              (when message-this-is-mail
-                (turn-off-auto-fill)
-                (setq
-                 truncate-lines nil
-                 word-wrap t
-                 visual-line-mode t
-                 use-hard-newlines t))))
+   (spacemacs/set-leader-keys "hor" 'helm-org-rifle)
+   (spacemacs/set-leader-keys "hoc" 'helm-org-rifle-current-buffer)
+   (spacemacs/set-leader-keys "hod" 'helm-org-rifle-directories)
+   (spacemacs/set-leader-keys "hof" 'helm-org-rifle-files)
+   (global-set-key [f5] (lambda () (interactive) (helm-org-rifle-directories '("~/org/active/"))))
+   (global-set-key [S-f5] 'helm-org-rifle-directories)
+   (global-set-key [f9] 'org-capture)
 
-  (add-hook 'message-send-hook
-            (lambda ()
-              (when use-hard-newlines
-                (harden-newlines))))
 
-  (add-hook 'gnus-article-mode-hook
-            (lambda ()
-              (setq
-               truncate-lines nil
-               word-wrap t)))
 
-  (slack-register-team
-    :name "WelpCentral"
-    :default nil
-    :client-id "19721597492.86816302775"
-    :client-secret "79c79ff3d0d4ebe3911e4203d0c8741a"
-    :token "xoxp-19721597492-20084511397-86803175382-408104dc5c5cc75156eecbb6535a6021"
-    :subscribed-channels '(welp))
-  (slack-register-team
-    :name "SaltStack"
-    :default t
-    :client-id "2775848702.86743476387"
-    :client-secret "06508475b1a37c7d78831c0206790fbc"
-    :token "xoxp-2775848702-2774466615-33236739860-5a002f6a01"
-    :subscribed-channels '(dev adobe-integrations core general infra lunch random releasediscussions riot suse-oneview tim utah)
-
-    )
-
-;;    (evil-define-key 'normal slack-info-mode-map
-;;      ",u" 'slack-room-update-messages)
-;;    (evil-define-key 'normal slack-mode-map
-;;      ",c" 'slack-buffer-kill
-;;      ",ra" 'slack-message-add-reaction
-;;      ",rr" 'slack-message-remove-reaction
-;;      ",rs" 'slack-message-show-reaction-users
-;;      ",pl" 'slack-room-pins-list
-;;      ",pa" 'slack-message-pins-add
-;;      ",pr" 'slack-message-pins-remove
-;;      ",mm" 'slack-message-write-another-buffer
-;;      ",me" 'slack-message-edit
-;;      ",md" 'slack-message-delete
-;;      ",u" 'slack-room-update-messages
-;;      ",2" 'slack-message-embed-mention
-;;      ",3" 'slack-message-embed-channel
-;;      "\C-n" 'slack-buffer-goto-next-message
-;;      "\C-p" 'slack-buffer-goto-prev-message)
-;;    (evil-define-key 'normal slack-edit-message-mode-map
-;;      ",k" 'slack-message-cancel-edit
-;;      ",s" 'slack-message-send-from-buffer
-;;      ",2" 'slack-message-embed-mention
-  ;;      ",3" 'slack-message-embed-channel)
-
-  (use-package alert
-    :commands (alert)
-    :init
-    (setq alert-default-style 'notifier))
-
-  (setq circe-network-options
-        '(("Mythserver"
-           :tls t
-           :host "mythserver.home.ncbt.org"
-           :port 61291
-           :pass "cro/freenode:up-vad-gez-d"
-           :nick "cro"
-           :channels ("#salt")
-           )))
-)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
@@ -431,39 +391,9 @@ you should place your code here."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(external-abook-command "goobook-lookup '%s'")
- '(gnus-alias-add-identity-menu t)
- '(gnus-alias-default-identity "ncbt")
- '(gnus-alias-identity-alist
-   (quote
-    (("ncbt" nil "C. R. Oldham <cro@ncbt.org>" nil nil nil "~/.signature.ncbt")
-     ("uhope" nil "C. R. Oldham <cr@uhope.link>" nil nil nil "~/.signature.uhope")
-     ("SaltStack" nil "C. R. Oldham <cr@saltstack.com>" nil nil nil "~/.signature.saltstack"))))
- '(gnus-alias-identity-rules
-   (quote
-    (("uhope"
-      ("any" ".*@uhope.link.*" both)
-      "uhope")
-     ("SaltStack"
-      ("any" ".*@saltstack.com.*" both)
-      "SaltStack"))))
- '(gnus-alias-use-buttonized-from t)
- '(org-capture-templates
-   (quote
-    (("t" "Todo Entry" entry
-      (file "~/vimwiki/TODOs.org")
-      "* TODO %?
-  %i
-  %a")
-     ("j" "Journal Entry" entry
-      (file+datetree "~/vimwiki/notes.org")
-      "* %?
-Entered on %U
-  %i
-  %a"))))
  '(package-selected-packages
    (quote
-    (pcache ob-elixir hide-comnt emoji-cheat-sheet-plus company-emoji pug-mode notmuch-labeler helm-notmuch notmuch ox-reveal ox-gfm quelpa-use-package circe-notifications slack circe oauth2 emojify ht yapfify xterm-color web-mode web-beautify tagedit smeargle slim-mode shell-pop scss-mode sass-mode salt-mode mmm-jinja2 yaml-mode pyvenv pytest pyenv-mode py-isort pip-requirements orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow lua-mode livid-mode skewer-mode simple-httpd live-py-mode less-css-mode json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc jade-mode hy-mode htmlize haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-ivy flyspell-correct flycheck-pos-tip pos-tip flycheck-mix flycheck-elm flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help erlang emmet-mode elm-mode ein websocket diff-hl cython-mode company-web web-completion-data company-tern dash-functional tern company-statistics company-anaconda coffee-mode auto-yasnippet yasnippet auto-dictionary anaconda-mode pythonic alchemist company elixir-mode ac-ispell auto-complete ws-butler window-numbering which-key wgrep volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline smex restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint ivy-hydra info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation help-fns+ helm-make helm helm-core google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump popup f s diminish define-word counsel-projectile projectile pkg-info epl counsel swiper ivy column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash async aggressive-indent adaptive-wrap ace-window ace-link avy quelpa package-build spacemacs-theme))))
+    (ob-elixir flycheck-mix alchemist elixir-mode insert-shebang fish-mode company-shell salt-mode mmm-jinja2 yaml-mode csv-mode nginx-mode lua-mode web-beautify livid-mode skewer-mode simple-httpd json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc company-tern dash-functional tern coffee-mode flycheck-elm elm-mode web-mode tagedit slim-mode scss-mode sass-mode pug-mode less-css-mode helm-css-scss haml-mode emmet-mode company-web web-completion-data helm-org-rifle yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic xterm-color smeargle shell-pop ox-reveal ox-gfm orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download mwim multi-term mmm-mode markdown-toc markdown-mode magit-gitflow htmlize helm-gitignore helm-company helm-c-yasnippet gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip pos-tip flycheck evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help diff-hl company-statistics company auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.

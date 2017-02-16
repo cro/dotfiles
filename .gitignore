@@ -27,3 +27,7 @@ salt/etc/salt/minion_id
 .config/configstore/update-notifier-bower.yml
 .config/sparkleshare/
 .config/pudb/*
+tmux-*
+.config/RunSnakeRun/
+.config/gtk-2.0/
+.config/karabiner/

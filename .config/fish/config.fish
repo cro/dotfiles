@@ -3,6 +3,15 @@ set -g VIRTUALFISH_HOME ~/src/ve
 set -g VIRTUALFISH_COMPAT_ALIASES # uncomment for virtualenvwrapper-style commands
 set -gx PATH ~/bin ~/dotfiles/bin /usr/local/elixir/bin ~/node_modules/.bin $PATH
 
+# if status --is-interactive
+#   keychain --eval --quiet --inherit any -Q id_rsa svc vps cro-saltstack
+# end
+
+if status --is-interactive
+  set -l IFS # this temporarily clears IFS, which disables the newline-splitting
+  eval (keychain --eval --quiet --inherit any -Q id_rsa svc vps cro-saltstack)
+end
+
 # eval (/usr/bin/python -m virtualfish compat_aliases)
 
 set fish_key_bindings fish_vi_key_bindings
